@@ -401,7 +401,7 @@
     <div class="saved-toast" id="toast"></div>
 
     <script>
-        const STORAGE_KEY = 'rwc-trigger-config-v2';
+        const STORAGE_KEY = 'rwc-trigger-config-v3';
 
         const $ = id => document.getElementById(id);
 
@@ -451,8 +451,8 @@
             firm_name: 'Madison Park Realty',
             realtor_email: '',
             webhookUrl: 'https://pricehubble.app.n8n.cloud/webhook/realtor-wellness-trigger',
-            agent_id: 'agent_REPLACE_ME',
-            agent_phone_number_id: 'phnum_REPLACE_ME',
+            agent_id: 'agent_0901kqfgpd59e9zrb1gvtq018k35',
+            agent_phone_number_id: 'phnum_3001kcp38r5je6hs64x2v2gpqe6f',
         };
 
         const PERSIST_FIELDS = Object.keys(DEFAULTS);
@@ -749,7 +749,7 @@
         loadConfig();
         updateBanner();
         updatePayloadPreview();
-        log('Realtor wellness trigger panel ready — v2 (favorable = price up + short DOM)', 'info');
+        log('Realtor wellness trigger panel ready — v3 (agent_id + phone_number_id wired)', 'info');
     </script>
 </body>
 </html>
