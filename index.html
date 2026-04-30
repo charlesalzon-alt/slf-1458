@@ -346,7 +346,7 @@
                 <li>Send payload to n8n webhook</li>
                 <li>n8n builds dynamic variables and favorable_signal text</li>
                 <li>n8n initiates ElevenLabs outbound call to past buyer</li>
-                <li>Agent runs wellness flow → calls send_results at end</li>
+                <li>Agent runs wellness flow with the past buyer (US English)</li>
             </ul>
 
             <button class="trigger-btn" id="triggerBtn">
@@ -697,7 +697,7 @@
                 }
 
                 markStep(3);
-                log('Agent will call send_results at the end of the call', 'info');
+                log('Agent is now running the wellness flow with the past buyer', 'info');
 
                 setStatus('✓ Wellness call triggered', 'success');
 
