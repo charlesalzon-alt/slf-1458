@@ -1,266 +1,538 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realtor Wellness Check — Trigger Panel</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2322C55E'/%3E%3Cpath d='M14 34l8 8 28-28' stroke='%230F172A' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" type="image/svg+xml" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Realtor Wellness Check — PriceHubble Solution Factory</title>
+
+    <!-- Favicon — official PH mark as inline SVG data URI (PH primary blue #014EFB) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' fill='none'%3E%3Cpath fill='%23014EFB' d='M7.48 20.395v15.538c0 .548.444.992.991.992h7.597a.992.992 0 0 0 .992-.992v-8.56c0-.548.444-.992.992-.992h1.997c.548 0 .992.444.992.991v8.561c0 .548.444.992.991.992h7.777a.992.992 0 0 0 .992-.992V20.41c0-.446-.229-.862-.606-1.102L19.618 12.6a1.305 1.305 0 0 0-1.418.013L8.065 19.306c-.365.242-.586.65-.586 1.089ZM34.202 28.2v7.733c0 .548.444.992.991.992h20.852a.992.992 0 0 0 .992-.992v-7.42c0-.721-.584-1.305-1.305-1.305H35.193a.992.992 0 0 0-.991.992ZM21.417 0c-.721 0-1.305.584-1.305 1.305v6.649c0 .337.171.651.455.834l12.944 8.335c.372.24.598.654.598 1.098v4.594c0 .548.444.992.992.992h9.284a.992.992 0 0 0 .991-.992V1.305c0-.72-.584-1.305-1.305-1.305H21.417ZM56.46 40.326h-8.072a1.01 1.01 0 0 0-1 .904c-.272 2.552-1.194 9.895-3.171 14.083-1.842 3.902-4.522 7.066-5.625 8.282-.16.177-.017.45.215.399 3.296-.734 16.886-4.823 18.626-22.597a.98.98 0 0 0-.973-1.071Zm-22.258.992V63.42c0 .442.519.65.81.318a42.452 42.452 0 0 0 6.14-9.27c2.359-4.884 2.715-10.88 2.76-13.181a.947.947 0 0 0-.962-.961h-7.757a.992.992 0 0 0-.991.992Zm-25.66-.992h8.072c.515 0 .946.392 1 .904.272 2.552 1.194 9.895 3.171 14.083 1.842 3.902 4.523 7.066 5.626 8.282.16.177.016.45-.216.399C22.9 63.26 9.31 59.17 7.57 41.397a.98.98 0 0 1 .973-1.071Zm22.258.992V63.42c0 .442-.519.65-.81.318a42.452 42.452 0 0 1-6.139-9.27c-2.36-4.884-2.716-10.88-2.761-13.181a.948.948 0 0 1 .962-.961h7.757c.547 0 .992.444.992.992Z'/%3E%3C/svg%3E" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg: #0F172A;
-            --surface: #1E293B;
-            --surface-hover: #334155;
-            --text-primary: #F8FAFC;
-            --text-secondary: #94A3B8;
-            --text-muted: #64748B;
-            --green: #22C55E;
-            --green-dark: #16A34A;
-            --green-glow: rgba(34, 197, 94, 0.15);
-            --red: #EF4444;
-            --red-glow: rgba(239, 68, 68, 0.15);
-            --amber: #F59E0B;
-            --amber-glow: rgba(245, 158, 11, 0.15);
-            --border: #334155;
-            --input-bg: #0F172A;
-            --radius-lg: 12px;
-            --radius-md: 8px;
-            --radius-sm: 6px;
+            /* PH Design System — Semantic */
+            --color-semantic-primary-body-text: #3a454e;
+            --color-semantic-default-bg: #ffffff;
+            --color-semantic-default-stroke: #dadee1;
+            --color-semantic-secondary-body-text: #6e7981;
+            --color-semantic-heading-text: #242f37;
+            --color-semantic-error-stroke: #dc4e45;
+            --color-semantic-warning-fill: #c97d03;
+            --color-semantic-accent-light-bg: #f9fafb;
+            --color-semantic-success-fill: #22c55e;
+            --color-semantic-success-text: #109458;
+            --color-semantic-success-bg: #dcfce7;
+            --color-semantic-success-stroke: #bce6c5;
+            --color-semantic-error-bg: #fef2f2;
+            --color-semantic-warning-bg: #fef3c7;
+            --color-semantic-border-light: #ededed;
+
+            /* PH Design System — Buttons */
+            --color-component-button-primary-text: #ffffff;
+            --color-component-button-primary-default-bg: #066abe;
+            --color-component-button-primary-disabled-bg: #b4bbc0;
+            --color-component-button-link-text: #066abe;
+            --color-component-button-secondary-text: #066abe;
+            --color-component-button-secondary-stroke: #066abe;
+
+            /* PH Design System — Forms */
+            --color-component-form-default-bg: #ffffff;
+            --color-component-form-default-text: #3a454e;
+            --color-component-form-placeholder-text: #b4bbc0;
+            --color-component-form-error-text: #dc4e45;
+
+            /* PH Design System — Core palette */
+            --color-core-neutral-900: #242f37;
+            --color-core-neutral-500: #6e7981;
+            --color-core-neutral-100: #f0f2f4;
+            --color-core-primary-100: #edf5fd;
+            --color-core-primary-50: #e0f2fe;
+            --color-core-shades-white: #ffffff;
+
+            /* Spacing & radius scales */
+            --spacing-0_5: 4px;
+            --spacing-1: 8px;
+            --spacing-1_5: 12px;
+            --spacing-2: 16px;
+            --spacing-3: 24px;
+            --spacing-4: 32px;
+
+            --corner-radius-0_5: 4px;
+            --corner-radius-1: 8px;
+            --corner-radius-2: 12px;
+            --corner-radius-3: 24px;
+
+            --shadow-xs: 0px 1px 2px 0px rgba(36, 51, 66, 0.06);
+            --shadow-card: 0px 1px 3px 0px rgba(36, 51, 66, 0.05), 0px 1px 2px 0px rgba(36, 51, 66, 0.04);
         }
+
+        html, body { height: 100%; }
 
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text-primary);
-            min-height: 100vh;
+            background: var(--color-semantic-accent-light-bg);
+            color: var(--color-semantic-primary-body-text);
             line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .container { max-width: 920px; margin: 0 auto; padding: 32px 24px; }
-
-        .header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border);
+        /* ---------- App header (PH brand bar) ---------- */
+        .app-header {
+            background: var(--color-semantic-default-bg);
+            border-bottom: 1px solid var(--color-semantic-default-stroke);
+            position: sticky; top: 0; z-index: 10;
         }
-
-        .header-left h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
-        .header-left p { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
-
-        .status-badge {
-            display: flex; align-items: center; gap: 8px;
-            padding: 6px 14px; border-radius: 20px;
+        .app-header-inner {
+            max-width: 960px; margin: 0 auto;
+            padding: 14px 24px;
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+        }
+        .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+        .brand-mark { width: 28px; height: 28px; flex-shrink: 0; }
+        .brand-text { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+        .brand-name {
+            font-size: 16px; font-weight: 700;
+            color: var(--color-semantic-heading-text);
+            letter-spacing: -0.01em;
+        }
+        .brand-divider {
+            width: 1px; height: 16px;
+            background: var(--color-semantic-default-stroke);
+            display: inline-block;
+        }
+        .brand-product {
+            font-size: 14px; font-weight: 500;
+            color: var(--color-semantic-secondary-body-text);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .header-right { display: flex; align-items: center; gap: 10px; }
+        .region-pill {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 10px; border-radius: 999px;
+            border: 1px solid var(--color-semantic-default-stroke);
+            background: var(--color-semantic-default-bg);
+            color: var(--color-semantic-secondary-body-text);
             font-size: 12px; font-weight: 600;
-            background: var(--green-glow); color: var(--green);
-            border: 1px solid rgba(34, 197, 94, 0.2);
         }
-
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 4px 12px; border-radius: 999px;
+            background: var(--color-semantic-success-bg);
+            color: var(--color-semantic-success-text);
+            border: 1px solid var(--color-semantic-success-stroke);
+            font-size: 12px; font-weight: 600;
+        }
         .status-dot {
             width: 8px; height: 8px; border-radius: 50%;
-            background: var(--green); animation: pulse 2s infinite;
+            background: var(--color-semantic-success-fill);
+            animation: pulse 2s infinite;
         }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+        /* ---------- Page hero ---------- */
+        .page-hero {
+            max-width: 960px; margin: 0 auto;
+            padding: 32px 24px 16px;
+        }
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 10px; border-radius: 999px;
+            background: var(--color-core-primary-100);
+            color: var(--color-component-button-primary-default-bg);
+            font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.08em;
+        }
+        .hero-title {
+            margin-top: 12px;
+            font-size: 28px; font-weight: 700; letter-spacing: -0.02em;
+            color: var(--color-semantic-heading-text);
+        }
+        .hero-subtitle {
+            margin-top: 6px;
+            font-size: 14px; line-height: 1.5;
+            color: var(--color-semantic-secondary-body-text);
+            max-width: 720px;
+        }
+
+        /* ---------- Container & cards ---------- */
+        .container { max-width: 960px; margin: 0 auto; padding: 8px 24px 64px; }
 
         .card {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: var(--radius-lg); padding: 24px; margin-bottom: 20px;
+            background: var(--color-semantic-default-bg);
+            border: 1px solid var(--color-semantic-default-stroke);
+            border-radius: var(--corner-radius-2);
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-card);
         }
 
         .card-title {
-            font-size: 13px; font-weight: 600; text-transform: uppercase;
-            letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 16px;
-            display: flex; align-items: center; gap: 8px;
+            display: flex; align-items: center; gap: 10px;
+            font-size: 16px; font-weight: 600;
+            color: var(--color-semantic-heading-text);
+            margin-bottom: 16px;
         }
-        .card-title .icon { font-size: 16px; }
+        .card-title .icon {
+            width: 28px; height: 28px;
+            display: inline-flex; align-items: center; justify-content: center;
+            background: var(--color-core-primary-100);
+            color: var(--color-component-button-primary-default-bg);
+            border-radius: var(--corner-radius-1);
+            flex-shrink: 0;
+        }
+        .card-title .icon svg { width: 16px; height: 16px; }
 
-        .lead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .lead-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        /* ---------- Form grid & fields ---------- */
+        .lead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+        .lead-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px 16px; }
         .full-width { grid-column: 1 / -1; }
 
         .field label {
-            display: block; font-size: 12px; font-weight: 500;
-            color: var(--text-secondary); margin-bottom: 6px;
+            display: block;
+            font-size: 12px; font-weight: 600;
+            color: var(--color-semantic-heading-text);
+            margin-bottom: 6px;
         }
         .field label .var-hint {
             font-family: 'JetBrains Mono', 'SF Mono', monospace;
-            font-size: 10px; color: var(--text-muted); font-weight: 400; margin-left: 4px;
+            font-size: 10px;
+            color: var(--color-semantic-secondary-body-text);
+            font-weight: 400; margin-left: 6px;
         }
 
         .field input, .field select, .field textarea {
-            width: 100%; padding: 10px 12px;
-            background: var(--input-bg); border: 1px solid var(--border);
-            border-radius: var(--radius-md); color: var(--text-primary);
-            font-size: 14px; font-family: inherit; transition: border-color 0.15s;
+            width: 100%;
+            padding: 9px 12px;
+            background: var(--color-component-form-default-bg);
+            border: 1px solid var(--color-semantic-default-stroke);
+            border-radius: var(--corner-radius-1);
+            color: var(--color-component-form-default-text);
+            font-size: 14px; font-family: inherit;
+            transition: border-color 0.15s, box-shadow 0.15s;
         }
-        .field textarea { min-height: 64px; resize: vertical; font-family: inherit; }
-        .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--green); }
-        .field input::placeholder, .field textarea::placeholder { color: var(--text-muted); }
-        .field input.computed { color: var(--text-secondary); background: rgba(34, 197, 94, 0.05); border-color: rgba(34, 197, 94, 0.25); font-style: italic; }
-
-        .signal-card { position: relative; overflow: hidden; }
-        .signal-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: var(--green);
+        .field textarea { min-height: 64px; resize: vertical; }
+        .field input::placeholder, .field textarea::placeholder {
+            color: var(--color-component-form-placeholder-text);
         }
-
-        .signal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
-        .signal-icon {
-            width: 40px; height: 40px; border-radius: var(--radius-md);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; flex-shrink: 0; background: var(--green-glow);
+        .field input:focus, .field select:focus, .field textarea:focus {
+            outline: none;
+            border-color: var(--color-component-button-primary-default-bg);
+            box-shadow: 0 0 0 3px rgba(6, 106, 190, 0.12);
         }
-        .signal-info { flex: 1; margin-left: 14px; }
-        .signal-info h3 { font-size: 16px; font-weight: 600; }
-        .signal-info p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
-        .signal-tag {
-            font-size: 11px; font-weight: 600; text-transform: uppercase;
-            letter-spacing: 0.06em; padding: 4px 10px; border-radius: var(--radius-sm);
-            background: var(--green-glow); color: var(--green);
+        .field select:disabled,
+        .field input:disabled {
+            background: var(--color-core-neutral-100);
+            color: var(--color-semantic-secondary-body-text);
+            cursor: not-allowed;
         }
 
-        .signal-steps { list-style: none; margin: 16px 0; padding: 0; }
-        .signal-steps li {
-            position: relative; padding: 6px 0 6px 24px;
-            font-size: 13px; color: var(--text-secondary);
+        /* ---------- Section dividers ---------- */
+        .section-divider {
+            display: flex; align-items: center; gap: 12px;
+            margin: 4px 0 14px;
+            font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.08em;
+            color: var(--color-semantic-secondary-body-text);
         }
-        .signal-steps li::before {
-            content: ''; position: absolute; left: 6px; top: 50%; transform: translateY(-50%);
-            width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid var(--text-muted);
+        .section-divider::after {
+            content: ''; flex: 1; height: 1px;
+            background: var(--color-semantic-border-light);
         }
-        .signal-steps li.done::before { background: var(--green); border-color: var(--green); }
+        .section-divider.with-top { margin-top: 22px; }
 
-        .trigger-btn {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            width: 100%; padding: 14px 24px; border: none; border-radius: var(--radius-md);
-            font-family: inherit; font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
-            cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;
-            background: var(--green); color: #0F172A;
+        /* ---------- Favorable signal banner ---------- */
+        .signal-banner {
+            margin: 18px 0 0;
+            padding: 14px 16px;
+            background: var(--color-core-primary-100);
+            border: 1px solid rgba(6, 106, 190, 0.18);
+            border-left: 3px solid var(--color-component-button-primary-default-bg);
+            border-radius: var(--corner-radius-1);
+            font-size: 13px; line-height: 1.55;
+            color: var(--color-semantic-primary-body-text);
         }
-        .trigger-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .trigger-btn:hover:not(:disabled) { background: var(--green-dark); color: #fff; }
-        .trigger-btn:active:not(:disabled) { transform: scale(0.98); }
-        .trigger-btn .btn-icon { font-size: 16px; }
+        .signal-banner strong {
+            color: var(--color-component-button-primary-default-bg);
+            font-weight: 700;
+        }
 
-        .signal-status {
-            display: flex; align-items: center; gap: 8px; margin-top: 12px;
-            font-size: 12px; font-weight: 500; color: var(--text-muted); min-height: 20px;
+        /* ---------- Trigger card ---------- */
+        .trigger-card {
+            background: linear-gradient(180deg, #ffffff 0%, var(--color-core-primary-100) 100%);
+            border: 1px solid rgba(6, 106, 190, 0.25);
         }
-        .signal-status.success { color: var(--green); }
-        .signal-status.error { color: var(--red); }
-        .signal-status.pending { color: var(--amber); }
+        .trigger-header {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            gap: 14px; margin-bottom: 14px;
+        }
+        .trigger-icon {
+            width: 44px; height: 44px;
+            border-radius: var(--corner-radius-1);
+            background: var(--color-component-button-primary-default-bg);
+            color: #fff;
+            display: inline-flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .trigger-icon svg { width: 22px; height: 22px; }
+        .trigger-info { flex: 1; }
+        .trigger-info h3 {
+            font-size: 18px; font-weight: 600;
+            color: var(--color-semantic-heading-text);
+        }
+        .trigger-info p {
+            font-size: 13px;
+            color: var(--color-semantic-secondary-body-text);
+            margin-top: 2px;
+        }
+        .trigger-tag {
+            font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.06em;
+            padding: 4px 10px; border-radius: 999px;
+            background: var(--color-component-button-primary-default-bg);
+            color: #fff; flex-shrink: 0;
+        }
 
-        .log-container {
-            max-height: 240px; overflow-y: auto;
-            font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
-            font-size: 12px; line-height: 1.7;
+        .trigger-steps { list-style: none; margin: 16px 0; padding: 0; }
+        .trigger-steps li {
+            position: relative; padding: 6px 0 6px 26px;
+            font-size: 13px;
+            color: var(--color-semantic-primary-body-text);
         }
-        .log-container::-webkit-scrollbar { width: 4px; }
-        .log-container::-webkit-scrollbar-track { background: transparent; }
-        .log-container::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-        .log-entry { padding: 4px 0; border-bottom: 1px solid rgba(51, 65, 85, 0.4); display: flex; gap: 10px; }
-        .log-time { color: var(--text-muted); flex-shrink: 0; }
-        .log-msg { flex: 1; white-space: pre-wrap; word-break: break-word; }
-        .log-msg.ok { color: var(--green); }
-        .log-msg.err { color: var(--red); }
-        .log-msg.warn { color: var(--amber); }
-        .log-msg.info { color: var(--text-secondary); }
-        .log-empty { color: var(--text-muted); font-style: italic; padding: 12px 0; }
+        .trigger-steps li::before {
+            content: ''; position: absolute; left: 6px; top: 50%;
+            transform: translateY(-50%);
+            width: 8px; height: 8px; border-radius: 50%;
+            border: 2px solid var(--color-component-form-placeholder-text);
+            background: #fff;
+        }
+        .trigger-steps li.done::before {
+            background: var(--color-component-button-primary-default-bg);
+            border-color: var(--color-component-button-primary-default-bg);
+            box-shadow: 0 0 0 2px rgba(6, 106, 190, 0.15);
+        }
 
-        .config-toggle {
-            display: flex; align-items: center; gap: 8px; padding: 10px 0;
-            cursor: pointer; font-size: 13px; font-weight: 500; color: var(--text-secondary);
-            border: none; background: none; font-family: inherit; transition: color 0.15s;
+        .btn-primary {
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 10px; width: 100%;
+            padding: 12px 24px;
+            font-family: inherit; font-size: 14px; font-weight: 600;
+            border: none; border-radius: var(--corner-radius-1);
+            background: var(--color-component-button-primary-default-bg);
+            color: var(--color-component-button-primary-text);
+            cursor: pointer; transition: opacity 0.15s, transform 0.05s;
         }
-        .config-toggle:hover { color: var(--text-primary); }
-        .config-toggle .chevron { transition: transform 0.2s; font-size: 10px; }
-        .config-toggle.open .chevron { transform: rotate(90deg); }
-        .config-body { display: none; padding-top: 12px; }
-        .config-body.open { display: block; }
-        .config-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-        .config-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+        .btn-primary:hover:not(:disabled) { opacity: 0.92; }
+        .btn-primary:active:not(:disabled) { transform: translateY(1px); }
+        .btn-primary:disabled {
+            background: var(--color-component-button-primary-disabled-bg);
+            cursor: not-allowed;
+        }
+        .btn-primary svg { width: 18px; height: 18px; }
 
         .btn-secondary {
-            padding: 8px 18px; border-radius: var(--radius-md);
-            border: 1px solid var(--border); background: transparent;
-            color: var(--text-secondary); font-family: inherit;
-            font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s;
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 6px; padding: 8px 16px;
+            font-family: inherit; font-size: 13px; font-weight: 600;
+            border: 1px solid var(--color-component-button-secondary-stroke);
+            background: transparent;
+            color: var(--color-component-button-secondary-text);
+            border-radius: var(--corner-radius-1);
+            cursor: pointer; transition: background 0.15s;
         }
-        .btn-secondary:hover { background: var(--surface-hover); color: var(--text-primary); }
+        .btn-secondary:hover { background: var(--color-core-primary-100); }
 
-        .btn-primary-sm {
-            padding: 8px 18px; border-radius: var(--radius-md); border: none;
-            background: var(--green); color: #0F172A; font-family: inherit;
-            font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+        .btn-tertiary {
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 6px; padding: 8px 14px;
+            font-family: inherit; font-size: 13px; font-weight: 500;
+            border: 1px solid var(--color-semantic-default-stroke);
+            background: var(--color-semantic-default-bg);
+            color: var(--color-semantic-secondary-body-text);
+            border-radius: var(--corner-radius-1);
+            cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s;
         }
-        .btn-primary-sm:hover { background: var(--green-dark); color: #fff; }
+        .btn-tertiary:hover {
+            background: var(--color-core-neutral-100);
+            color: var(--color-semantic-heading-text);
+        }
 
-        .saved-toast {
-            position: fixed; bottom: 24px; right: 24px; padding: 10px 20px;
-            background: var(--green); color: #0F172A; font-size: 13px; font-weight: 600;
-            border-radius: var(--radius-md); opacity: 0; transform: translateY(10px);
-            transition: all 0.3s; pointer-events: none;
+        .trigger-status {
+            display: flex; align-items: center; gap: 8px;
+            margin-top: 12px; min-height: 20px;
+            font-size: 13px; font-weight: 500;
+            color: var(--color-semantic-secondary-body-text);
         }
-        .saved-toast.show { opacity: 1; transform: translateY(0); }
+        .trigger-status.success { color: var(--color-semantic-success-text); }
+        .trigger-status.error { color: var(--color-semantic-error-stroke); }
+        .trigger-status.pending { color: var(--color-semantic-warning-fill); }
 
         .payload-preview {
-            margin-top: 12px; padding: 12px; background: var(--input-bg);
-            border: 1px solid var(--border); border-radius: var(--radius-md);
-            font-family: 'JetBrains Mono', 'SF Mono', monospace; font-size: 11px;
-            color: var(--text-secondary); white-space: pre-wrap; max-height: 220px;
-            overflow-y: auto; display: none;
+            margin-top: 12px; padding: 12px;
+            background: var(--color-semantic-accent-light-bg);
+            border: 1px solid var(--color-semantic-default-stroke);
+            border-radius: var(--corner-radius-1);
+            font-family: 'JetBrains Mono', 'SF Mono', monospace;
+            font-size: 11px; line-height: 1.55;
+            color: var(--color-semantic-primary-body-text);
+            white-space: pre-wrap; word-break: break-word;
+            max-height: 240px; overflow-y: auto;
+            display: none;
         }
         .payload-preview.visible { display: block; }
 
-        .section-divider {
-            display: flex; align-items: center; gap: 12px; margin: 8px 0 16px;
-            font-size: 11px; font-weight: 600; text-transform: uppercase;
-            letter-spacing: 0.06em; color: var(--text-muted);
+        /* ---------- Event log ---------- */
+        .log-container {
+            max-height: 260px; overflow-y: auto;
+            font-family: 'JetBrains Mono', 'SF Mono', monospace;
+            font-size: 12px; line-height: 1.7;
+            background: var(--color-semantic-accent-light-bg);
+            border: 1px solid var(--color-semantic-default-stroke);
+            border-radius: var(--corner-radius-1);
+            padding: 8px 12px;
         }
-        .section-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+        .log-empty {
+            color: var(--color-semantic-secondary-body-text);
+            font-style: italic; padding: 12px 0;
+            font-family: 'Inter', sans-serif;
+        }
+        .log-entry {
+            padding: 4px 0;
+            border-bottom: 1px solid var(--color-semantic-border-light);
+            display: flex; gap: 12px;
+        }
+        .log-entry:last-child { border-bottom: 0; }
+        .log-time {
+            color: var(--color-semantic-secondary-body-text);
+            flex-shrink: 0;
+        }
+        .log-msg { flex: 1; white-space: pre-wrap; word-break: break-word; }
+        .log-msg.ok { color: var(--color-semantic-success-text); }
+        .log-msg.err { color: var(--color-semantic-error-stroke); }
+        .log-msg.warn { color: var(--color-semantic-warning-fill); }
+        .log-msg.info { color: var(--color-semantic-primary-body-text); }
 
-        .signal-banner {
-            margin: 8px 0 16px; padding: 12px 14px;
-            background: var(--green-glow); border: 1px solid rgba(34, 197, 94, 0.25);
-            border-radius: var(--radius-md);
-            font-size: 13px; color: var(--text-primary); line-height: 1.55;
+        /* ---------- Configuration ---------- */
+        .config-toggle {
+            display: flex; align-items: center; gap: 8px;
+            font-family: inherit; font-size: 14px; font-weight: 600;
+            color: var(--color-semantic-heading-text);
+            background: none; border: none; cursor: pointer;
+            padding: 4px 0;
         }
-        .signal-banner strong { color: var(--green); }
+        .config-toggle .chevron {
+            font-size: 10px; transition: transform 0.2s;
+            color: var(--color-semantic-secondary-body-text);
+        }
+        .config-toggle.open .chevron { transform: rotate(90deg); }
+        .config-body { display: none; padding-top: 16px; }
+        .config-body.open { display: block; }
+        .config-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .config-actions {
+            display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap;
+        }
+
+        /* ---------- Toast ---------- */
+        .saved-toast {
+            position: fixed; bottom: 24px; right: 24px;
+            padding: 10px 18px;
+            background: var(--color-semantic-heading-text);
+            color: #fff;
+            font-size: 13px; font-weight: 600;
+            border-radius: var(--corner-radius-1);
+            box-shadow: 0 8px 24px rgba(36, 51, 66, 0.18);
+            opacity: 0; transform: translateY(10px);
+            transition: all 0.25s; pointer-events: none;
+            z-index: 100;
+        }
+        .saved-toast.show { opacity: 1; transform: translateY(0); }
+
+        /* ---------- Footer ---------- */
+        .app-footer {
+            text-align: center; padding: 32px 24px 16px;
+            color: var(--color-semantic-secondary-body-text);
+            font-size: 12px;
+        }
+        .app-footer .ph-mark {
+            color: var(--color-component-button-primary-default-bg);
+            font-weight: 700;
+        }
 
         @media (max-width: 720px) {
             .lead-grid, .lead-grid-3 { grid-template-columns: 1fr; }
-            .header { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .app-header-inner { padding: 12px 16px; }
+            .page-hero, .container { padding-left: 16px; padding-right: 16px; }
+            .hero-title { font-size: 22px; }
+            .trigger-header { flex-wrap: wrap; }
+            .trigger-tag { order: -1; align-self: flex-start; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-
-        <div class="header">
-            <div class="header-left">
-                <h1>Realtor Wellness Check — Trigger Panel</h1>
-                <p>Backstage tool to fire a comparable-triggered wellness call to a past buyer.</p>
+    <!-- ============== PH brand header ============== -->
+    <header class="app-header">
+        <div class="app-header-inner">
+            <div class="brand">
+                <!-- PH mark — official logo at 28x28 in PH primary blue -->
+                <svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                    <path fill="#014EFB" d="M7.48 20.395v15.538c0 .548.444.992.991.992h7.597a.992.992 0 0 0 .992-.992v-8.56c0-.548.444-.992.992-.992h1.997c.548 0 .992.444.992.991v8.561c0 .548.444.992.991.992h7.777a.992.992 0 0 0 .992-.992V20.41c0-.446-.229-.862-.606-1.102L19.618 12.6a1.305 1.305 0 0 0-1.418.013L8.065 19.306c-.365.242-.586.65-.586 1.089ZM34.202 28.2v7.733c0 .548.444.992.991.992h20.852a.992.992 0 0 0 .992-.992v-7.42c0-.721-.584-1.305-1.305-1.305H35.193a.992.992 0 0 0-.991.992ZM21.417 0c-.721 0-1.305.584-1.305 1.305v6.649c0 .337.171.651.455.834l12.944 8.335c.372.24.598.654.598 1.098v4.594c0 .548.444.992.992.992h9.284a.992.992 0 0 0 .991-.992V1.305c0-.72-.584-1.305-1.305-1.305H21.417ZM56.46 40.326h-8.072a1.01 1.01 0 0 0-1 .904c-.272 2.552-1.194 9.895-3.171 14.083-1.842 3.902-4.522 7.066-5.625 8.282-.16.177-.017.45.215.399 3.296-.734 16.886-4.823 18.626-22.597a.98.98 0 0 0-.973-1.071Zm-22.258.992V63.42c0 .442.519.65.81.318a42.452 42.452 0 0 0 6.14-9.27c2.359-4.884 2.715-10.88 2.76-13.181a.947.947 0 0 0-.962-.961h-7.757a.992.992 0 0 0-.991.992Zm-25.66-.992h8.072c.515 0 .946.392 1 .904.272 2.552 1.194 9.895 3.171 14.083 1.842 3.902 4.523 7.066 5.626 8.282.16.177.016.45-.216.399C22.9 63.26 9.31 59.17 7.57 41.397a.98.98 0 0 1 .973-1.071Zm22.258.992V63.42c0 .442-.519.65-.81.318a42.452 42.452 0 0 1-6.139-9.27c-2.36-4.884-2.716-10.88-2.761-13.181a.948.948 0 0 1 .962-.961h7.757c.547 0 .992.444.992.992Z" />
+                </svg>
+                <div class="brand-text">
+                    <span class="brand-name">PriceHubble</span>
+                    <span class="brand-divider"></span>
+                    <span class="brand-product">Solution Factory · Realtor Wellness Check</span>
+                </div>
             </div>
-            <div class="status-badge">
-                <span class="status-dot"></span>
-                Ready
+            <div class="header-right">
+                <span class="region-pill">🇺🇸 US</span>
+                <span class="status-badge">
+                    <span class="status-dot"></span>
+                    Ready
+                </span>
             </div>
         </div>
+    </header>
 
-        <!-- Buyer / Customer Information -->
+    <!-- ============== Hero ============== -->
+    <section class="page-hero">
+        <span class="eyebrow">Backstage · Outbound Voice Demo</span>
+        <h1 class="hero-title">Trigger a comparable-validated wellness call</h1>
+        <p class="hero-subtitle">
+            Fill in the past buyer, their property, the favorable comparable that just sold nearby, and
+            their realtor. We'll call the past buyer with an AI voice agent that opens with their realtor's
+            good news and runs a short, US-compliant check-in.
+        </p>
+    </section>
+
+    <main class="container">
+
+        <!-- ============== Buyer ============== -->
         <div class="card">
-            <div class="card-title"><span class="icon">👤</span>Buyer (past client)</div>
+            <div class="card-title">
+                <span class="icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </span>
+                Buyer (past client)
+            </div>
             <div class="lead-grid">
                 <div class="field">
                     <label for="client_first_name">First Name <span class="var-hint">→ client_first_name</span></label>
-                    <input type="text" id="client_first_name" placeholder="e.g. Sarah">
+                    <input type="text" id="client_first_name" placeholder="e.g. Sarah" />
                 </div>
                 <div class="field">
                     <label for="client_last_name">Last Name <span class="var-hint">→ client_full_name</span></label>
-                    <input type="text" id="client_last_name" placeholder="e.g. Mitchell">
+                    <input type="text" id="client_last_name" placeholder="e.g. Mitchell" />
                 </div>
                 <div class="field">
                     <label for="phone_number">Phone Number (E.164) <span class="var-hint">→ phone_number</span></label>
-                    <input type="tel" id="phone_number" placeholder="+12125551234">
+                    <input type="tel" id="phone_number" placeholder="+12125551234" />
                 </div>
                 <div class="field">
                     <label for="language_spoken">Language <span class="var-hint">→ en-US (locked v1)</span></label>
@@ -271,39 +543,44 @@
             </div>
         </div>
 
-        <!-- Property + Comparable -->
+        <!-- ============== Property + Comparable ============== -->
         <div class="card">
-            <div class="card-title"><span class="icon">🏠</span>Property &amp; Favorable Comparable</div>
+            <div class="card-title">
+                <span class="icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </span>
+                Property &amp; favorable comparable
+            </div>
 
             <div class="section-divider">Past purchase (the buyer's home)</div>
             <div class="lead-grid">
                 <div class="field full-width">
                     <label for="property_address">Property Address <span class="var-hint">→ property_address</span></label>
-                    <input type="text" id="property_address" placeholder="245 W 87th St, Apt 4B, New York, NY 10024">
+                    <input type="text" id="property_address" placeholder="245 W 87th St, Apt 4B, New York, NY 10024" />
                 </div>
                 <div class="field">
                     <label for="purchase_date">Purchase Date <span class="var-hint">→ purchase_date</span></label>
-                    <input type="date" id="purchase_date">
+                    <input type="date" id="purchase_date" />
                 </div>
                 <div class="field">
                     <label for="purchase_price_usd">Purchase Price (USD) <span class="var-hint">→ purchase_price_usd</span></label>
-                    <input type="number" id="purchase_price_usd" min="0" step="1000" placeholder="1150000">
+                    <input type="number" id="purchase_price_usd" min="0" step="1000" placeholder="1150000" />
                 </div>
             </div>
 
-            <div class="section-divider" style="margin-top:20px">Comparable that just sold (the trigger)</div>
+            <div class="section-divider with-top">Comparable that just sold (the trigger)</div>
             <div class="lead-grid">
                 <div class="field full-width">
                     <label for="comparable_address">Comparable Address <span class="var-hint">→ comparable_address</span></label>
-                    <input type="text" id="comparable_address" placeholder="260 W 88th St, Apt 6A, New York, NY 10024">
+                    <input type="text" id="comparable_address" placeholder="260 W 88th St, Apt 6A, New York, NY 10024" />
                 </div>
                 <div class="field">
                     <label for="comparable_sold_price_usd">Sold Price (USD) <span class="var-hint">→ comparable_sold_price_usd</span></label>
-                    <input type="number" id="comparable_sold_price_usd" min="0" step="1000" placeholder="1290000">
+                    <input type="number" id="comparable_sold_price_usd" min="0" step="1000" placeholder="1290000" />
                 </div>
                 <div class="field">
                     <label for="comparable_dom_days">Days On Market <span class="var-hint">→ comparable_dom_days · fast = favorable</span></label>
-                    <input type="number" id="comparable_dom_days" min="0" step="1" placeholder="12">
+                    <input type="number" id="comparable_dom_days" min="0" step="1" placeholder="12" />
                 </div>
             </div>
 
@@ -312,61 +589,73 @@
             </div>
         </div>
 
-        <!-- Realtor + Firm -->
+        <!-- ============== Realtor ============== -->
         <div class="card">
-            <div class="card-title"><span class="icon">🤝</span>Realtor &amp; Firm</div>
+            <div class="card-title">
+                <span class="icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </span>
+                Realtor &amp; firm
+            </div>
             <div class="lead-grid-3">
                 <div class="field">
                     <label for="realtor_name">Realtor Name <span class="var-hint">→ realtor_name</span></label>
-                    <input type="text" id="realtor_name" placeholder="e.g. Jordan Reyes">
+                    <input type="text" id="realtor_name" placeholder="e.g. Jordan Reyes" />
                 </div>
                 <div class="field">
                     <label for="firm_name">Firm Name <span class="var-hint">→ firm_name</span></label>
-                    <input type="text" id="firm_name" placeholder="e.g. Madison Park Realty">
+                    <input type="text" id="firm_name" placeholder="e.g. Madison Park Realty" />
                 </div>
                 <div class="field">
                     <label for="realtor_email">Realtor Email <span class="var-hint">(for digest, optional)</span></label>
-                    <input type="email" id="realtor_email" placeholder="jordan@madisonparkrealty.com">
+                    <input type="email" id="realtor_email" placeholder="jordan@madisonparkrealty.com" />
                 </div>
             </div>
         </div>
 
-        <!-- Trigger -->
-        <div class="card signal-card">
-            <div class="signal-header">
-                <div class="signal-icon">📞</div>
-                <div class="signal-info">
+        <!-- ============== Trigger ============== -->
+        <div class="card trigger-card">
+            <div class="trigger-header">
+                <div class="trigger-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div class="trigger-info">
                     <h3>Trigger Wellness Call</h3>
                     <p>Comparable-validated post-transaction check-in via ElevenLabs outbound</p>
                 </div>
-                <span class="signal-tag">Outbound</span>
+                <span class="trigger-tag">Outbound</span>
             </div>
 
-            <ul class="signal-steps" id="triggerSteps">
+            <ul class="trigger-steps" id="triggerSteps">
                 <li>Send payload to n8n webhook</li>
                 <li>n8n builds dynamic variables and favorable_signal text</li>
                 <li>n8n initiates ElevenLabs outbound call to past buyer</li>
                 <li>Agent runs wellness flow with the past buyer (US English)</li>
             </ul>
 
-            <button class="trigger-btn" id="triggerBtn">
-                <span class="btn-icon">📞</span>
-                TRIGGER WELLNESS CALL
+            <button class="btn-primary" id="triggerBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Trigger wellness call
             </button>
 
-            <div class="signal-status" id="triggerStatus"></div>
+            <div class="trigger-status" id="triggerStatus"></div>
             <div class="payload-preview" id="payloadPreview"></div>
         </div>
 
-        <!-- Event Log -->
+        <!-- ============== Event log ============== -->
         <div class="card">
-            <div class="card-title"><span class="icon">📋</span>Event Log</div>
+            <div class="card-title">
+                <span class="icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                </span>
+                Event log
+            </div>
             <div class="log-container" id="logContainer">
                 <div class="log-empty">No events yet. Fill the form and trigger a wellness call.</div>
             </div>
         </div>
 
-        <!-- Configuration -->
+        <!-- ============== Configuration ============== -->
         <div class="card">
             <button class="config-toggle" id="configToggle">
                 <span class="chevron">▶</span>
@@ -375,33 +664,37 @@
             <div class="config-body" id="configBody">
                 <div class="config-grid">
                     <div class="field">
-                        <label for="webhookUrl">Webhook URL — n8n Trigger</label>
-                        <input type="url" id="webhookUrl" placeholder="https://[n8n-host]/webhook/realtor-wellness-trigger">
+                        <label for="webhookUrl">Webhook URL — n8n trigger</label>
+                        <input type="url" id="webhookUrl" placeholder="https://[n8n-host]/webhook/realtor-wellness-trigger" />
                     </div>
                     <div class="field">
                         <label for="agent_id">ElevenLabs Agent ID <span class="var-hint">→ agent_id</span></label>
-                        <input type="text" id="agent_id" placeholder="agent_xxx">
+                        <input type="text" id="agent_id" placeholder="agent_xxx" />
                     </div>
                     <div class="field">
                         <label for="agent_phone_number_id">ElevenLabs Phone Number ID <span class="var-hint">→ agent_phone_number_id</span></label>
-                        <input type="text" id="agent_phone_number_id" placeholder="phnum_xxx">
+                        <input type="text" id="agent_phone_number_id" placeholder="phnum_xxx" />
                     </div>
                 </div>
                 <div class="config-actions">
-                    <button class="btn-primary-sm" id="saveConfig">Save Configuration</button>
-                    <button class="btn-secondary" id="clearConfig">Reset to Defaults</button>
-                    <button class="btn-secondary" id="clearLog">Clear Log</button>
-                    <button class="btn-secondary" id="togglePayloads">Show Payload</button>
+                    <button class="btn-secondary" id="saveConfig">Save configuration</button>
+                    <button class="btn-tertiary" id="clearConfig">Reset to defaults</button>
+                    <button class="btn-tertiary" id="clearLog">Clear log</button>
+                    <button class="btn-tertiary" id="togglePayloads">Show payload</button>
                 </div>
             </div>
         </div>
 
-    </div>
+    </main>
+
+    <footer class="app-footer">
+        Built by <span class="ph-mark">PriceHubble</span> Solution Factory · Realtor Wellness Check Demo · v1.1
+    </footer>
 
     <div class="saved-toast" id="toast"></div>
 
     <script>
-        const STORAGE_KEY = 'rwc-trigger-config-v3';
+        const STORAGE_KEY = 'rwc-trigger-config-v4';
 
         const $ = id => document.getElementById(id);
 
@@ -457,7 +750,7 @@
 
         const PERSIST_FIELDS = Object.keys(DEFAULTS);
 
-        // --- Config persistence ---
+        // ---------- Config persistence ----------
 
         function loadConfig() {
             try {
@@ -493,7 +786,7 @@
             setTimeout(() => els.toast.classList.remove('show'), 2000);
         }
 
-        // --- Logging ---
+        // ---------- Logging ----------
 
         let logEntries = [];
 
@@ -521,11 +814,11 @@
             els.logContainer.innerHTML = '<div class="log-empty">Log cleared.</div>';
         }
 
-        // --- Status & step helpers ---
+        // ---------- Status & step helpers ----------
 
         function setStatus(msg, level) {
             els.triggerStatus.textContent = msg;
-            els.triggerStatus.className = 'signal-status ' + (level || '');
+            els.triggerStatus.className = 'trigger-status ' + (level || '');
         }
 
         function markStep(index) {
@@ -537,12 +830,11 @@
             els.triggerSteps.querySelectorAll('li').forEach(li => li.classList.remove('done'));
         }
 
-        // --- Favorable signal preview (mirrors the n8n Code node logic) ---
+        // ---------- Favorable signal preview (mirrors n8n Code node) ----------
         // A comparable is favorable to the past buyer when:
         //   1) it sold for MORE than what they paid (price appreciation), AND/OR
-        //   2) it sold QUICKLY (short DOM) - which proves strong, fast demand for
-        //      similar properties (the buyer's home would also sell fast).
-        // Long DOM is NOT favorable and must not be framed as a positive.
+        //   2) it sold QUICKLY (short DOM) — strong, fast demand for similar homes
+        // Long DOM is NOT favorable.
 
         function buildSignalText(purchasePrice, comparablePrice, comparableDom) {
             const parts = [];
@@ -575,7 +867,7 @@
             els.signalBannerText.textContent = text;
         }
 
-        // --- Payload builder ---
+        // ---------- Payload builder ----------
 
         function buildPayload() {
             const firstName = (els.client_first_name.value || '').trim();
@@ -606,7 +898,7 @@
             els.payloadPreview.textContent = JSON.stringify(buildPayload(), null, 2);
         }
 
-        // --- HTTP call (with CORS fallback) ---
+        // ---------- HTTP call (with CORS fallback) ----------
 
         async function fireWebhook(url, payload) {
             const safeUrl = url.replace(/(\/webhook\/)[^?]+/, '$1...');
@@ -640,14 +932,13 @@
             }
         }
 
-        // --- Trigger handler ---
+        // ---------- Trigger handler ----------
 
         let firing = false;
 
         async function triggerCall() {
             if (firing) return;
 
-            // Validation
             const phone = (els.phone_number.value || '').trim();
             if (!phone || !/^\+?\d{10,15}$/.test(phone.replace(/[^+\d]/g, ''))) {
                 setStatus('✗ Phone must be E.164 format (e.g. +12125551234)', 'error');
@@ -666,7 +957,7 @@
             resetSteps();
 
             try {
-                setStatus('Firing wellness trigger...', 'pending');
+                setStatus('Firing wellness trigger…', 'pending');
                 log('📞 Firing wellness trigger → ' + (els.client_first_name.value || 'customer') + ' at ' + phone, 'warn');
 
                 const payload = buildPayload();
@@ -710,7 +1001,7 @@
             }
         }
 
-        // --- Event bindings ---
+        // ---------- Event bindings ----------
 
         els.triggerBtn.addEventListener('click', triggerCall);
         els.saveConfig.addEventListener('click', saveConfig);
@@ -727,10 +1018,9 @@
             payloadVisible = !payloadVisible;
             updatePayloadPreview();
             els.payloadPreview.classList.toggle('visible', payloadVisible);
-            els.togglePayloads.textContent = payloadVisible ? 'Hide Payload' : 'Show Payload';
+            els.togglePayloads.textContent = payloadVisible ? 'Hide payload' : 'Show payload';
         });
 
-        // Auto-save + live update on every field change
         Array.prototype.forEach.call(document.querySelectorAll('.field input, .field textarea, .field select'), el => {
             el.addEventListener('input', () => {
                 saveConfig();
@@ -744,12 +1034,12 @@
             });
         });
 
-        // --- Init ---
+        // ---------- Init ----------
 
         loadConfig();
         updateBanner();
         updatePayloadPreview();
-        log('Realtor wellness trigger panel ready — v3 (agent_id + phone_number_id wired)', 'info');
+        log('Realtor wellness trigger panel ready — v1.1 (PriceHubble brand)', 'info');
     </script>
 </body>
 </html>
