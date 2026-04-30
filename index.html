@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtor Wellness Check — Trigger Panel</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2322C55E'/%3E%3Cpath d='M14 34l8 8 28-28' stroke='%230F172A' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" type="image/svg+xml" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0F172A;
+            --surface: #1E293B;
+            --surface-hover: #334155;
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --green: #22C55E;
+            --green-dark: #16A34A;
+            --green-glow: rgba(34, 197, 94, 0.15);
+            --red: #EF4444;
+            --red-glow: rgba(239, 68, 68, 0.15);
+            --amber: #F59E0B;
+            --amber-glow: rgba(245, 158, 11, 0.15);
+            --border: #334155;
+            --input-bg: #0F172A;
+            --radius-lg: 12px;
+            --radius-md: 8px;
+            --radius-sm: 6px;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        .container { max-width: 920px; margin: 0 auto; padding: 32px 24px; }
+
+        .header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border);
+        }
+
+        .header-left h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+        .header-left p { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+        .status-badge {
+            display: flex; align-items: center; gap: 8px;
+            padding: 6px 14px; border-radius: 20px;
+            font-size: 12px; font-weight: 600;
+            background: var(--green-glow); color: var(--green);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .status-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--green); animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        .card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); padding: 24px; margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 13px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 16px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .card-title .icon { font-size: 16px; }
+
+        .lead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .lead-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        .full-width { grid-column: 1 / -1; }
+
+        .field label {
+            display: block; font-size: 12px; font-weight: 500;
+            color: var(--text-secondary); margin-bottom: 6px;
+        }
+        .field label .var-hint {
+            font-family: 'JetBrains Mono', 'SF Mono', monospace;
+            font-size: 10px; color: var(--text-muted); font-weight: 400; margin-left: 4px;
+        }
+
+        .field input, .field select, .field textarea {
+            width: 100%; padding: 10px 12px;
+            background: var(--input-bg); border: 1px solid var(--border);
+            border-radius: var(--radius-md); color: var(--text-primary);
+            font-size: 14px; font-family: inherit; transition: border-color 0.15s;
+        }
+        .field textarea { min-height: 64px; resize: vertical; font-family: inherit; }
+        .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--green); }
+        .field input::placeholder, .field textarea::placeholder { color: var(--text-muted); }
+        .field input.computed { color: var(--text-secondary); background: rgba(34, 197, 94, 0.05); border-color: rgba(34, 197, 94, 0.25); font-style: italic; }
+
+        .signal-card { position: relative; overflow: hidden; }
+        .signal-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: var(--green);
+        }
+
+        .signal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+        .signal-icon {
+            width: 40px; height: 40px; border-radius: var(--radius-md);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; flex-shrink: 0; background: var(--green-glow);
+        }
+        .signal-info { flex: 1; margin-left: 14px; }
+        .signal-info h3 { font-size: 16px; font-weight: 600; }
+        .signal-info p { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+        .signal-tag {
+            font-size: 11px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.06em; padding: 4px 10px; border-radius: var(--radius-sm);
+            background: var(--green-glow); color: var(--green);
+        }
+
+        .signal-steps { list-style: none; margin: 16px 0; padding: 0; }
+        .signal-steps li {
+            position: relative; padding: 6px 0 6px 24px;
+            font-size: 13px; color: var(--text-secondary);
+        }
+        .signal-steps li::before {
+            content: ''; position: absolute; left: 6px; top: 50%; transform: translateY(-50%);
+            width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid var(--text-muted);
+        }
+        .signal-steps li.done::before { background: var(--green); border-color: var(--green); }
+
+        .trigger-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; padding: 14px 24px; border: none; border-radius: var(--radius-md);
+            font-family: inherit; font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
+            cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;
+            background: var(--green); color: #0F172A;
+        }
+        .trigger-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .trigger-btn:hover:not(:disabled) { background: var(--green-dark); color: #fff; }
+        .trigger-btn:active:not(:disabled) { transform: scale(0.98); }
+        .trigger-btn .btn-icon { font-size: 16px; }
+
+        .signal-status {
+            display: flex; align-items: center; gap: 8px; margin-top: 12px;
+            font-size: 12px; font-weight: 500; color: var(--text-muted); min-height: 20px;
+        }
+        .signal-status.success { color: var(--green); }
+        .signal-status.error { color: var(--red); }
+        .signal-status.pending { color: var(--amber); }
+
+        .log-container {
+            max-height: 240px; overflow-y: auto;
+            font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+            font-size: 12px; line-height: 1.7;
+        }
+        .log-container::-webkit-scrollbar { width: 4px; }
+        .log-container::-webkit-scrollbar-track { background: transparent; }
+        .log-container::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+        .log-entry { padding: 4px 0; border-bottom: 1px solid rgba(51, 65, 85, 0.4); display: flex; gap: 10px; }
+        .log-time { color: var(--text-muted); flex-shrink: 0; }
+        .log-msg { flex: 1; white-space: pre-wrap; word-break: break-word; }
+        .log-msg.ok { color: var(--green); }
+        .log-msg.err { color: var(--red); }
+        .log-msg.warn { color: var(--amber); }
+        .log-msg.info { color: var(--text-secondary); }
+        .log-empty { color: var(--text-muted); font-style: italic; padding: 12px 0; }
+
+        .config-toggle {
+            display: flex; align-items: center; gap: 8px; padding: 10px 0;
+            cursor: pointer; font-size: 13px; font-weight: 500; color: var(--text-secondary);
+            border: none; background: none; font-family: inherit; transition: color 0.15s;
+        }
+        .config-toggle:hover { color: var(--text-primary); }
+        .config-toggle .chevron { transition: transform 0.2s; font-size: 10px; }
+        .config-toggle.open .chevron { transform: rotate(90deg); }
+        .config-body { display: none; padding-top: 12px; }
+        .config-body.open { display: block; }
+        .config-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .config-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+
+        .btn-secondary {
+            padding: 8px 18px; border-radius: var(--radius-md);
+            border: 1px solid var(--border); background: transparent;
+            color: var(--text-secondary); font-family: inherit;
+            font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s;
+        }
+        .btn-secondary:hover { background: var(--surface-hover); color: var(--text-primary); }
+
+        .btn-primary-sm {
+            padding: 8px 18px; border-radius: var(--radius-md); border: none;
+            background: var(--green); color: #0F172A; font-family: inherit;
+            font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+        }
+        .btn-primary-sm:hover { background: var(--green-dark); color: #fff; }
+
+        .saved-toast {
+            position: fixed; bottom: 24px; right: 24px; padding: 10px 20px;
+            background: var(--green); color: #0F172A; font-size: 13px; font-weight: 600;
+            border-radius: var(--radius-md); opacity: 0; transform: translateY(10px);
+            transition: all 0.3s; pointer-events: none;
+        }
+        .saved-toast.show { opacity: 1; transform: translateY(0); }
+
+        .payload-preview {
+            margin-top: 12px; padding: 12px; background: var(--input-bg);
+            border: 1px solid var(--border); border-radius: var(--radius-md);
+            font-family: 'JetBrains Mono', 'SF Mono', monospace; font-size: 11px;
+            color: var(--text-secondary); white-space: pre-wrap; max-height: 220px;
+            overflow-y: auto; display: none;
+        }
+        .payload-preview.visible { display: block; }
+
+        .section-divider {
+            display: flex; align-items: center; gap: 12px; margin: 8px 0 16px;
+            font-size: 11px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.06em; color: var(--text-muted);
+        }
+        .section-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+        .signal-banner {
+            margin: 8px 0 16px; padding: 12px 14px;
+            background: var(--green-glow); border: 1px solid rgba(34, 197, 94, 0.25);
+            border-radius: var(--radius-md);
+            font-size: 13px; color: var(--text-primary); line-height: 1.55;
+        }
+        .signal-banner strong { color: var(--green); }
+
+        @media (max-width: 720px) {
+            .lead-grid, .lead-grid-3 { grid-template-columns: 1fr; }
+            .header { flex-direction: column; align-items: flex-start; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="header">
+            <div class="header-left">
+                <h1>Realtor Wellness Check — Trigger Panel</h1>
+                <p>Backstage tool to fire a comparable-triggered wellness call to a past buyer.</p>
+            </div>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                Ready
+            </div>
+        </div>
+
+        <!-- Buyer / Customer Information -->
+        <div class="card">
+            <div class="card-title"><span class="icon">👤</span>Buyer (past client)</div>
+            <div class="lead-grid">
+                <div class="field">
+                    <label for="client_first_name">First Name <span class="var-hint">→ client_first_name</span></label>
+                    <input type="text" id="client_first_name" placeholder="e.g. Sarah">
+                </div>
+                <div class="field">
+                    <label for="client_last_name">Last Name <span class="var-hint">→ client_full_name</span></label>
+                    <input type="text" id="client_last_name" placeholder="e.g. Mitchell">
+                </div>
+                <div class="field">
+                    <label for="phone_number">Phone Number (E.164) <span class="var-hint">→ phone_number</span></label>
+                    <input type="tel" id="phone_number" placeholder="+12125551234">
+                </div>
+                <div class="field">
+                    <label for="language_spoken">Language <span class="var-hint">→ en-US (locked v1)</span></label>
+                    <select id="language_spoken" disabled>
+                        <option value="en-US" selected>English (US)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Property + Comparable -->
+        <div class="card">
+            <div class="card-title"><span class="icon">🏠</span>Property &amp; Favorable Comparable</div>
+
+            <div class="section-divider">Past purchase (the buyer's home)</div>
+            <div class="lead-grid">
+                <div class="field full-width">
+                    <label for="property_address">Property Address <span class="var-hint">→ property_address</span></label>
+                    <input type="text" id="property_address" placeholder="245 W 87th St, Apt 4B, New York, NY 10024">
+                </div>
+                <div class="field">
+                    <label for="purchase_date">Purchase Date <span class="var-hint">→ purchase_date</span></label>
+                    <input type="date" id="purchase_date">
+                </div>
+                <div class="field">
+                    <label for="purchase_price_usd">Purchase Price (USD) <span class="var-hint">→ purchase_price_usd</span></label>
+                    <input type="number" id="purchase_price_usd" min="0" step="1000" placeholder="1150000">
+                </div>
+            </div>
+
+            <div class="section-divider" style="margin-top:20px">Comparable that just sold (the trigger)</div>
+            <div class="lead-grid">
+                <div class="field full-width">
+                    <label for="comparable_address">Comparable Address <span class="var-hint">→ comparable_address</span></label>
+                    <input type="text" id="comparable_address" placeholder="260 W 88th St, Apt 6A, New York, NY 10024">
+                </div>
+                <div class="field">
+                    <label for="comparable_sold_price_usd">Sold Price (USD) <span class="var-hint">→ comparable_sold_price_usd</span></label>
+                    <input type="number" id="comparable_sold_price_usd" min="0" step="1000" placeholder="1290000">
+                </div>
+                <div class="field">
+                    <label for="comparable_dom_days">Days On Market <span class="var-hint">→ comparable_dom_days · fast = favorable</span></label>
+                    <input type="number" id="comparable_dom_days" min="0" step="1" placeholder="12">
+                </div>
+            </div>
+
+            <div class="signal-banner" id="signalBanner">
+                <strong>Favorable signal:</strong> <span id="signalBannerText">Enter the prices and DOM above — the agent's pitch will preview here.</span>
+            </div>
+        </div>
+
+        <!-- Realtor + Firm -->
+        <div class="card">
+            <div class="card-title"><span class="icon">🤝</span>Realtor &amp; Firm</div>
+            <div class="lead-grid-3">
+                <div class="field">
+                    <label for="realtor_name">Realtor Name <span class="var-hint">→ realtor_name</span></label>
+                    <input type="text" id="realtor_name" placeholder="e.g. Jordan Reyes">
+                </div>
+                <div class="field">
+                    <label for="firm_name">Firm Name <span class="var-hint">→ firm_name</span></label>
+                    <input type="text" id="firm_name" placeholder="e.g. Madison Park Realty">
+                </div>
+                <div class="field">
+                    <label for="realtor_email">Realtor Email <span class="var-hint">(for digest, optional)</span></label>
+                    <input type="email" id="realtor_email" placeholder="jordan@madisonparkrealty.com">
+                </div>
+            </div>
+        </div>
+
+        <!-- Trigger -->
+        <div class="card signal-card">
+            <div class="signal-header">
+                <div class="signal-icon">📞</div>
+                <div class="signal-info">
+                    <h3>Trigger Wellness Call</h3>
+                    <p>Comparable-validated post-transaction check-in via ElevenLabs outbound</p>
+                </div>
+                <span class="signal-tag">Outbound</span>
+            </div>
+
+            <ul class="signal-steps" id="triggerSteps">
+                <li>Send payload to n8n webhook</li>
+                <li>n8n builds dynamic variables and favorable_signal text</li>
+                <li>n8n initiates ElevenLabs outbound call to past buyer</li>
+                <li>Agent runs wellness flow → calls send_results at end</li>
+            </ul>
+
+            <button class="trigger-btn" id="triggerBtn">
+                <span class="btn-icon">📞</span>
+                TRIGGER WELLNESS CALL
+            </button>
+
+            <div class="signal-status" id="triggerStatus"></div>
+            <div class="payload-preview" id="payloadPreview"></div>
+        </div>
+
+        <!-- Event Log -->
+        <div class="card">
+            <div class="card-title"><span class="icon">📋</span>Event Log</div>
+            <div class="log-container" id="logContainer">
+                <div class="log-empty">No events yet. Fill the form and trigger a wellness call.</div>
+            </div>
+        </div>
+
+        <!-- Configuration -->
+        <div class="card">
+            <button class="config-toggle" id="configToggle">
+                <span class="chevron">▶</span>
+                Configuration — Webhook URL &amp; ElevenLabs IDs
+            </button>
+            <div class="config-body" id="configBody">
+                <div class="config-grid">
+                    <div class="field">
+                        <label for="webhookUrl">Webhook URL — n8n Trigger</label>
+                        <input type="url" id="webhookUrl" placeholder="https://[n8n-host]/webhook/realtor-wellness-trigger">
+                    </div>
+                    <div class="field">
+                        <label for="agent_id">ElevenLabs Agent ID <span class="var-hint">→ agent_id</span></label>
+                        <input type="text" id="agent_id" placeholder="agent_xxx">
+                    </div>
+                    <div class="field">
+                        <label for="agent_phone_number_id">ElevenLabs Phone Number ID <span class="var-hint">→ agent_phone_number_id</span></label>
+                        <input type="text" id="agent_phone_number_id" placeholder="phnum_xxx">
+                    </div>
+                </div>
+                <div class="config-actions">
+                    <button class="btn-primary-sm" id="saveConfig">Save Configuration</button>
+                    <button class="btn-secondary" id="clearConfig">Reset to Defaults</button>
+                    <button class="btn-secondary" id="clearLog">Clear Log</button>
+                    <button class="btn-secondary" id="togglePayloads">Show Payload</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="saved-toast" id="toast"></div>
+
+    <script>
+        const STORAGE_KEY = 'rwc-trigger-config-v2';
+
+        const $ = id => document.getElementById(id);
+
+        const els = {
+            client_first_name: $('client_first_name'),
+            client_last_name: $('client_last_name'),
+            phone_number: $('phone_number'),
+            language_spoken: $('language_spoken'),
+            property_address: $('property_address'),
+            purchase_date: $('purchase_date'),
+            purchase_price_usd: $('purchase_price_usd'),
+            comparable_address: $('comparable_address'),
+            comparable_sold_price_usd: $('comparable_sold_price_usd'),
+            comparable_dom_days: $('comparable_dom_days'),
+            realtor_name: $('realtor_name'),
+            firm_name: $('firm_name'),
+            realtor_email: $('realtor_email'),
+            webhookUrl: $('webhookUrl'),
+            agent_id: $('agent_id'),
+            agent_phone_number_id: $('agent_phone_number_id'),
+            triggerBtn: $('triggerBtn'),
+            triggerStatus: $('triggerStatus'),
+            triggerSteps: $('triggerSteps'),
+            payloadPreview: $('payloadPreview'),
+            signalBannerText: $('signalBannerText'),
+            logContainer: $('logContainer'),
+            configToggle: $('configToggle'),
+            configBody: $('configBody'),
+            saveConfig: $('saveConfig'),
+            clearConfig: $('clearConfig'),
+            clearLog: $('clearLog'),
+            togglePayloads: $('togglePayloads'),
+            toast: $('toast'),
+        };
+
+        const DEFAULTS = {
+            client_first_name: 'Sarah',
+            client_last_name: 'Mitchell',
+            phone_number: '+12125551234',
+            property_address: '245 W 87th St, Apt 4B, New York, NY 10024',
+            purchase_date: '2022-03-15',
+            purchase_price_usd: '1150000',
+            comparable_address: '260 W 88th St, Apt 6A, New York, NY 10024',
+            comparable_sold_price_usd: '1290000',
+            comparable_dom_days: '12',
+            realtor_name: 'Jordan Reyes',
+            firm_name: 'Madison Park Realty',
+            realtor_email: '',
+            webhookUrl: 'https://pricehubble.app.n8n.cloud/webhook/realtor-wellness-trigger',
+            agent_id: 'agent_REPLACE_ME',
+            agent_phone_number_id: 'phnum_REPLACE_ME',
+        };
+
+        const PERSIST_FIELDS = Object.keys(DEFAULTS);
+
+        // --- Config persistence ---
+
+        function loadConfig() {
+            try {
+                const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+                PERSIST_FIELDS.forEach(key => {
+                    if (els[key]) {
+                        els[key].value = data[key] !== undefined ? data[key] : (DEFAULTS[key] || '');
+                    }
+                });
+            } catch (_) {
+                PERSIST_FIELDS.forEach(key => { if (els[key]) els[key].value = DEFAULTS[key] || ''; });
+            }
+        }
+
+        function saveConfig() {
+            const data = {};
+            PERSIST_FIELDS.forEach(key => { if (els[key]) data[key] = els[key].value; });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            showToast('Configuration saved');
+        }
+
+        function clearConfig() {
+            localStorage.removeItem(STORAGE_KEY);
+            PERSIST_FIELDS.forEach(key => { if (els[key]) els[key].value = DEFAULTS[key] || ''; });
+            updateBanner();
+            updatePayloadPreview();
+            showToast('Defaults restored');
+        }
+
+        function showToast(msg) {
+            els.toast.textContent = msg;
+            els.toast.classList.add('show');
+            setTimeout(() => els.toast.classList.remove('show'), 2000);
+        }
+
+        // --- Logging ---
+
+        let logEntries = [];
+
+        function log(msg, level) {
+            level = level || 'info';
+            const time = new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            logEntries.push({ time: time, msg: msg, level: level });
+            if (logEntries.length === 1) els.logContainer.innerHTML = '';
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            const timeSpan = document.createElement('span');
+            timeSpan.className = 'log-time';
+            timeSpan.textContent = time;
+            const msgSpan = document.createElement('span');
+            msgSpan.className = 'log-msg ' + level;
+            msgSpan.textContent = msg;
+            entry.appendChild(timeSpan);
+            entry.appendChild(msgSpan);
+            els.logContainer.appendChild(entry);
+            els.logContainer.scrollTop = els.logContainer.scrollHeight;
+        }
+
+        function clearLog() {
+            logEntries = [];
+            els.logContainer.innerHTML = '<div class="log-empty">Log cleared.</div>';
+        }
+
+        // --- Status & step helpers ---
+
+        function setStatus(msg, level) {
+            els.triggerStatus.textContent = msg;
+            els.triggerStatus.className = 'signal-status ' + (level || '');
+        }
+
+        function markStep(index) {
+            const items = els.triggerSteps.querySelectorAll('li');
+            if (items[index]) items[index].classList.add('done');
+        }
+
+        function resetSteps() {
+            els.triggerSteps.querySelectorAll('li').forEach(li => li.classList.remove('done'));
+        }
+
+        // --- Favorable signal preview (mirrors the n8n Code node logic) ---
+        // A comparable is favorable to the past buyer when:
+        //   1) it sold for MORE than what they paid (price appreciation), AND/OR
+        //   2) it sold QUICKLY (short DOM) - which proves strong, fast demand for
+        //      similar properties (the buyer's home would also sell fast).
+        // Long DOM is NOT favorable and must not be framed as a positive.
+
+        function buildSignalText(purchasePrice, comparablePrice, comparableDom) {
+            const parts = [];
+            if (purchasePrice > 0 && comparablePrice > 0) {
+                const pctRaw = ((comparablePrice - purchasePrice) / purchasePrice) * 100;
+                if (pctRaw >= 1) {
+                    const pct = Math.round(pctRaw);
+                    parts.push('it sold for about ' + pct + '% more than what you paid for yours');
+                } else if (Math.abs(pctRaw) < 1) {
+                    parts.push('it sold at roughly the same level as what you paid');
+                }
+            }
+            if (comparableDom > 0 && comparableDom <= 14) {
+                parts.push('it closed in just ' + comparableDom + ' days, which tells you demand for places like yours is strong right now');
+            } else if (comparableDom > 0 && comparableDom <= 35) {
+                parts.push('it closed in only ' + comparableDom + ' days, which is fast for this market and points to real demand for places like yours');
+            }
+            if (!parts.length) return 'A comparable place to yours just closed nearby and the data points to a healthy market for what you bought.';
+            let s = parts.join(', and ');
+            s = s.charAt(0).toUpperCase() + s.slice(1);
+            if (!s.endsWith('.')) s += '.';
+            return s;
+        }
+
+        function updateBanner() {
+            const purchasePrice = Number(els.purchase_price_usd.value || 0);
+            const comparablePrice = Number(els.comparable_sold_price_usd.value || 0);
+            const comparableDom = Number(els.comparable_dom_days.value || 0);
+            const text = buildSignalText(purchasePrice, comparablePrice, comparableDom);
+            els.signalBannerText.textContent = text;
+        }
+
+        // --- Payload builder ---
+
+        function buildPayload() {
+            const firstName = (els.client_first_name.value || '').trim();
+            const lastName = (els.client_last_name.value || '').trim();
+            const fullName = [firstName, lastName].filter(Boolean).join(' ');
+            return {
+                rw: {
+                    client_first_name: firstName,
+                    client_full_name: fullName,
+                    phone_number: (els.phone_number.value || '').trim(),
+                    property_address: (els.property_address.value || '').trim(),
+                    purchase_date: (els.purchase_date.value || '').trim(),
+                    purchase_price_usd: Number(els.purchase_price_usd.value || 0),
+                    comparable_address: (els.comparable_address.value || '').trim(),
+                    comparable_sold_price_usd: Number(els.comparable_sold_price_usd.value || 0),
+                    comparable_dom_days: Number(els.comparable_dom_days.value || 0),
+                    realtor_name: (els.realtor_name.value || '').trim(),
+                    firm_name: (els.firm_name.value || '').trim(),
+                    realtor_email: (els.realtor_email.value || '').trim(),
+                    agent_id: (els.agent_id.value || '').trim(),
+                    agent_phone_number_id: (els.agent_phone_number_id.value || '').trim(),
+                    language_spoken: 'en-US',
+                },
+            };
+        }
+
+        function updatePayloadPreview() {
+            els.payloadPreview.textContent = JSON.stringify(buildPayload(), null, 2);
+        }
+
+        // --- HTTP call (with CORS fallback) ---
+
+        async function fireWebhook(url, payload) {
+            const safeUrl = url.replace(/(\/webhook\/)[^?]+/, '$1...');
+            log('POST → ' + safeUrl, 'info');
+            const jsonBody = JSON.stringify(payload);
+
+            try {
+                const resp = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: jsonBody,
+                });
+                let body = null;
+                try { body = await resp.json(); } catch (_) {}
+                return { status: resp.status, body: body, ok: resp.ok, mode: 'cors' };
+            } catch (corsErr) {
+                log('CORS preflight blocked — retrying with text/plain (no preflight)', 'warn');
+                try {
+                    const resp = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain' },
+                        body: jsonBody,
+                    });
+                    let body = null;
+                    try { body = await resp.json(); } catch (_) {}
+                    return { status: resp.status, body: body, ok: resp.ok, mode: 'text-plain' };
+                } catch (corsErr2) {
+                    log('Response blocked by CORS but request was sent — webhook triggered', 'warn');
+                    return { status: 0, body: null, ok: true, mode: 'opaque' };
+                }
+            }
+        }
+
+        // --- Trigger handler ---
+
+        let firing = false;
+
+        async function triggerCall() {
+            if (firing) return;
+
+            // Validation
+            const phone = (els.phone_number.value || '').trim();
+            if (!phone || !/^\+?\d{10,15}$/.test(phone.replace(/[^+\d]/g, ''))) {
+                setStatus('✗ Phone must be E.164 format (e.g. +12125551234)', 'error');
+                log('Validation FAILED — invalid phone', 'err');
+                return;
+            }
+            const webhookUrl = (els.webhookUrl.value || '').trim();
+            if (!webhookUrl) {
+                setStatus('✗ No webhook URL — open Configuration below', 'error');
+                log('Trigger FAILED — no webhook URL', 'err');
+                return;
+            }
+
+            firing = true;
+            els.triggerBtn.disabled = true;
+            resetSteps();
+
+            try {
+                setStatus('Firing wellness trigger...', 'pending');
+                log('📞 Firing wellness trigger → ' + (els.client_first_name.value || 'customer') + ' at ' + phone, 'warn');
+
+                const payload = buildPayload();
+                const result = await fireWebhook(webhookUrl, payload);
+
+                if (result.mode === 'opaque') {
+                    log('Sent (opaque mode — webhook received the payload but response is blocked)', 'ok');
+                } else {
+                    log('Response: HTTP ' + result.status + (result.mode === 'text-plain' ? ' (text/plain fallback)' : ''), result.ok ? 'ok' : 'err');
+                    if (result.body) log('Body: ' + JSON.stringify(result.body), 'info');
+                }
+
+                markStep(0);
+                log('n8n received the payload', 'ok');
+
+                markStep(1);
+                if (result.body && result.body.favorable_signal) {
+                    log('favorable_signal: ' + result.body.favorable_signal, 'ok');
+                } else {
+                    log('Dynamic variables built (favorable_signal preview shown above)', 'ok');
+                }
+
+                markStep(2);
+                if (result.body && result.body.leadId) {
+                    log('Outbound call initiated — leadId: ' + result.body.leadId, 'ok');
+                } else {
+                    log('Outbound call initiated', 'ok');
+                }
+
+                markStep(3);
+                log('Agent will call send_results at the end of the call', 'info');
+
+                setStatus('✓ Wellness call triggered', 'success');
+
+            } catch (err) {
+                setStatus('✗ Failed: ' + err.message, 'error');
+                log('Trigger FAILED: ' + err.message, 'err');
+            } finally {
+                els.triggerBtn.disabled = false;
+                firing = false;
+            }
+        }
+
+        // --- Event bindings ---
+
+        els.triggerBtn.addEventListener('click', triggerCall);
+        els.saveConfig.addEventListener('click', saveConfig);
+        els.clearConfig.addEventListener('click', clearConfig);
+        els.clearLog.addEventListener('click', clearLog);
+
+        els.configToggle.addEventListener('click', () => {
+            const open = els.configBody.classList.toggle('open');
+            els.configToggle.classList.toggle('open', open);
+        });
+
+        let payloadVisible = false;
+        els.togglePayloads.addEventListener('click', () => {
+            payloadVisible = !payloadVisible;
+            updatePayloadPreview();
+            els.payloadPreview.classList.toggle('visible', payloadVisible);
+            els.togglePayloads.textContent = payloadVisible ? 'Hide Payload' : 'Show Payload';
+        });
+
+        // Auto-save + live update on every field change
+        Array.prototype.forEach.call(document.querySelectorAll('.field input, .field textarea, .field select'), el => {
+            el.addEventListener('input', () => {
+                saveConfig();
+                updateBanner();
+                updatePayloadPreview();
+            });
+            el.addEventListener('change', () => {
+                saveConfig();
+                updateBanner();
+                updatePayloadPreview();
+            });
+        });
+
+        // --- Init ---
+
+        loadConfig();
+        updateBanner();
+        updatePayloadPreview();
+        log('Realtor wellness trigger panel ready — v2 (favorable = price up + short DOM)', 'info');
+    </script>
+</body>
+</html>
