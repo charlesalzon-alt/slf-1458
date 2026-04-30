@@ -535,9 +535,9 @@
                     <input type="tel" id="phone_number" placeholder="+12125551234" />
                 </div>
                 <div class="field">
-                    <label for="language_spoken">Language <span class="var-hint">→ en-US (locked v1)</span></label>
+                    <label for="language_spoken">Language <span class="var-hint">→ en (US English, locked v1)</span></label>
                     <select id="language_spoken" disabled>
-                        <option value="en-US" selected>English (US)</option>
+                        <option value="en" selected>English (US)</option>
                     </select>
                 </div>
             </div>
@@ -694,7 +694,7 @@
     <div class="saved-toast" id="toast"></div>
 
     <script>
-        const STORAGE_KEY = 'rwc-trigger-config-v4';
+        const STORAGE_KEY = 'rwc-trigger-config-v5';
 
         const $ = id => document.getElementById(id);
 
@@ -889,7 +889,7 @@
                     realtor_email: (els.realtor_email.value || '').trim(),
                     agent_id: (els.agent_id.value || '').trim(),
                     agent_phone_number_id: (els.agent_phone_number_id.value || '').trim(),
-                    language_spoken: 'en-US',
+                    language_spoken: 'en',
                 },
             };
         }
@@ -1039,7 +1039,7 @@
         loadConfig();
         updateBanner();
         updatePayloadPreview();
-        log('Realtor wellness trigger panel ready — v1.1 (PriceHubble brand)', 'info');
+        log('Realtor wellness trigger panel ready — v1.2 (PH brand · ElevenLabs language = en)', 'info');
     </script>
 </body>
 </html>
