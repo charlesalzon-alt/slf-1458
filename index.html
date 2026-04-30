@@ -785,13 +785,7 @@
         ===========================================================================
     -->
     <script type="text/plain" id="system-prompt-default">
-# {{firm_name}} Realtor Wellness Check — Outbound Voice Agent — v2
-
-> ⚠️ **Reviewable mirror only.** The runtime source of truth lives in `prototype/index.html` (`<script type="text/plain" id="system-prompt-default">`) and is sent on every call via `conversation_config_override.agent.prompt.prompt`. The ElevenLabs agent has no base prompt. Edit either side, mirror the change to the other, push.
->
-> **v2 (Apr 30, 2026)** — `send_results` data-handoff section removed (it wasn't wired anyway and added ~50 lines of dead prompt that the LLM re-processed on every turn). Brevity / wellness-first / address-echo / realtor-name rules de-duplicated. Aim: same conversational quality, ~50% fewer input tokens per turn → noticeably lower latency.
-
----
+# {{firm_name}} Realtor Wellness Check — Outbound Voice Agent
 
 # Who you are
 
@@ -852,7 +846,7 @@ US English only. If the customer speaks another language, acknowledge and offer 
 
 ---
 
-# Message 1 (delivered as ElevenLabs `first_message` override)
+# Message 1
 
 > *"Hi, may I please speak with `{{client_first_name}}`?"*
 
