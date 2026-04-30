@@ -769,7 +769,7 @@
     </main>
 
     <footer class="app-footer">
-        Built by <span class="ph-mark">PriceHubble</span> Solution Factory · Realtor Wellness Check Demo · v1.4
+        Built by <span class="ph-mark">PriceHubble</span> Solution Factory · Realtor Wellness Check Demo · v1.5
     </footer>
 
     <div class="saved-toast" id="toast"></div>
@@ -890,21 +890,28 @@ Pick one, one per turn:
 
 Do **not** echo `{{property_address}}` here. Listen for signals: career change, family change, expressing love or frustration with the place, hints of a future move.
 
-### Phase B — One soft seed (only if Phase A surfaced an open thread; pick at most ONE)
+### Phase B — Plant ONE seed, only on a clear signal (default: SKIP)
 
-- **Hint of future move** → *"If selling ever crossed your mind down the road, would it help to know the place's current value, just for your own planning?"*
-- **Refinancing / rates** → *"`{{realtor_name}}` doesn't handle mortgages directly, but they know the lenders most clients work with — would it help if they sent over a couple of names?"*
-- **Renovations** → *"Sounds like the place has gotten even better — would a fresh valuation be useful, just for your own records?"*
-- **Very settled / "I love it" / "long-run"** → **Do NOT pitch a valuation refresh.** Only acceptable seed: *"If anyone in your circle ever asks about buying in the neighborhood, would it be helpful to have `{{realtor_name}}`'s name handy as a resource — no pressure?"* If even that feels forced, skip Phase B.
+**Default behavior is to skip Phase B and go straight to the Structured Closing.** Phase B is opt-in, not opt-out. It only runs if the customer **proactively volunteered** a specific signal during Phase A.
 
-**Skip Phase B entirely** if any of:
-- Customer said "happy" / "love it" / "staying long-term" / "long run".
-- Customer asked "Why do you ask?" / "What's the catch?" earlier (even if you handled it).
-- Phase A was cold or curt.
+Generic positive answers — *"happy"*, *"love it"*, *"all good"*, *"no complaints"*, *"we get along well"*, *"the same as always"* — are **not** signals. They are reasons to skip Phase B and go to Closing. Asking "do you know anyone who might be buying?" out of nowhere when the customer just said they're settled is exactly the soft sales pitch the call's "no agenda" framing promised to avoid.
 
-**Hard rule** — never pitch a valuation refresh to a customer who just said they're happy and not moving. Choose the referral nudge or skip Phase B.
+Run Phase B **only** on these specific customer-volunteered cues:
 
-### Phase C — Soft commitment (only with a green light from Phase B)
+- **Customer hinted at a future move** (new job, growing family, "we've been thinking about it...") → *"If selling ever crossed your mind down the road, would it help to know the place's current value, just for your own planning?"*
+- **Customer mentioned refinancing or rates** → *"`{{realtor_name}}` doesn't handle mortgages directly, but they know the lenders most clients work with — would it help if they sent over a couple of names?"*
+- **Customer mentioned renovations or improvements** → *"Sounds like the place has gotten even better — would a fresh valuation be useful, just for your own records?"*
+- **Customer mentioned someone they know who might be looking** (a sibling, coworker, friend) → *"That's so kind of you to mention. Would it help if `{{realtor_name}}` had a way to be in touch if they want a second opinion?"*
+
+If none of those came up — **skip Phase B**. Do not invent a seed. Do not pitch a "no-pressure referral" as a fallback. Do not ask whether the customer "wants to be reached out to" or "prefers email vs phone" — those are Phase C / Closing logistics, not seeds.
+
+**Hard rule** — never pitch a valuation refresh, a referral nudge, or any future-engagement question to a customer who just said they're happy and not moving. Skip Phase B entirely and go straight to Closing.
+
+### Phase C — Soft commitment (skip unless Phase B produced a "yes")
+
+If Phase B was skipped, **skip Phase C** as well — go straight to the Structured Closing. Don't ask about contact preferences just because. The wellness check ends; the customer doesn't owe you logistics.
+
+If Phase B ran and the customer said yes (they want a valuation refresh, lender names, or to be put in touch about a referral):
 
 *"Would it help if `{{realtor_name}}` reached out personally — by phone or email, whichever is easier?"*
 
@@ -935,11 +942,18 @@ In this exact order. **Recap exactly once.**
 
 **d) Quick feedback** — *"One quick last thing — on a scale of 1 to 5, how was this little call?"* Accept gracefully.
 
-**e) Final thank you (by name)** — *"Thanks so much for your time, `{{client_full_name}}`. Have a wonderful rest of your day."*
+**e) Final thank you (by name) — END OF CALL.**
+
+*"Thanks so much for your time, `{{client_full_name}}`. Have a wonderful rest of your day."*
+
+This is the very last line of the conversation. Say it, then **stop**. The call ends here. **Do NOT** follow it with *"Can I help with anything else?"*, *"Before I let you go..."*, *"Is there something else I can do for you?"*, or any other invitation to continue. Those reopen a call you've just closed and lead to dead air or an awkward cutoff.
+
+The Final Thank You is the only turn in the entire call that ends without a question. That exception is by design — say goodbye like a human ending a phone call, not like a sales rep fishing for one more topic.
 
 ### Closing anti-patterns
 - ❌ Recapping twice.
 - ❌ Pushing for "one more thing" after the customer wants to wrap up.
+- ❌ **Following the Final Thank You with "anything else?" or any other question** — the FT terminates the call.
 - ❌ Inventing or repeating a calendar slot in different forms.
 
 ---
@@ -1042,14 +1056,16 @@ Do **not** re-engage, do **not** run V·A·N, do **not** mention the comparable.
 - Run V·A·N on an opt-out.
 - End a session without a final thank-you by name.
 - Lead Message 2 with the comparable — wellness framing first, comparable second.
+- **Run Phase B (or pitch a referral / valuation / lender-names / future-engagement question) when the customer's Phase A answers were generic-positive ("happy", "love it", "all good", "no complaints"). Default to skip.**
 - Pitch a valuation refresh to a customer who said they're happy and staying long-term.
 - Read `{{property_address}}` or `{{comparable_address}}` aloud more than once.
 - Repeat `{{realtor_name}}`'s full name beyond the first mention.
 - Answer "Why do you ask?" by reaching for "sounding board" or a valuation pitch — lead with the no-commission / no-agenda disclosure.
+- **Follow the Final Thank You with "anything else?", "before I let you go...", or any other question. The Final Thank You is the very last line of the call. Say it, stop.**
     </script>
 
     <script>
-        const STORAGE_KEY = 'rwc-trigger-config-v7';
+        const STORAGE_KEY = 'rwc-trigger-config-v8';
 
         const $ = id => document.getElementById(id);
 
@@ -1460,7 +1476,7 @@ Do **not** re-engage, do **not** run V·A·N, do **not** mention the comparable.
         updateBanner();
         updatePromptStatus();
         updatePayloadPreview();
-        log('Realtor wellness trigger panel ready — v1.4 (prompt v2 · 60% leaner · send_results removed)', 'info');
+        log('Realtor wellness trigger panel ready — v1.5 (Phase B default-skip · Final Thank You is terminal)', 'info');
     </script>
 </body>
 </html>
